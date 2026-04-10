@@ -277,7 +277,6 @@ function switchMode(ctx, params) {
         review_mode: true,
         questions,
       };
-      v.__modals = { quiz: 'dismissible' };
       result.due_cards = reviewCards.length;
       result.message = `복습 문제 ${reviewCards.length}개 준비!`;
     }
@@ -286,22 +285,21 @@ function switchMode(ctx, params) {
   } else if (mode === 'weak-focus') {
     const weak = findWeakTopics(curriculum);
     if (theme_id) v.current_theme = theme_id;
-    v.__modals = { quiz: 'dismissible' };
     result.weak_topics = weak;
     result.message = weak.length > 0
       ? `취약 분야: ${weak.map(t => t.name).join(', ')}`
       : '취약 분야가 없어! 대단해~';
   } else if (mode === 'challenge') {
     v.difficulty = '어려움';
-    v.__modals = { quiz: 'dismissible' };
     result.message = '챌린지 모드! 어려운 문제만 나온다~';
   } else {
     // quiz (default)
-    v.__modals = { quiz: 'dismissible' };
     result.message = '퀴즈 모드로 전환!';
   }
 
-  const vars = { app_mode: v.app_mode, difficulty: v.difficulty, due_cards_count: v.due_cards_count, __modals: v.__modals };
+  // NOTE: __modals는 설정하지 않는다. 대시보드 패널의 turnEnd 핸들러가
+  // quiz.json에 새 세트가 있음을 감지하고 AI 응답이 끝난 뒤 패널을 연다.
+  const vars = { app_mode: v.app_mode, difficulty: v.difficulty, due_cards_count: v.due_cards_count };
   if (theme_id) vars.current_theme = theme_id;
   return { variables: vars, data: dataUpdates, result };
 }

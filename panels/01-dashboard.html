@@ -179,4 +179,16 @@
   shadow.querySelector('[data-action="rewards"]')?.addEventListener('click', () => {
     __panelBridge.openModal('rewards', 'dismissible');
   });
+
+  // ── turnEnd: AI 응답 완료 후 새 퀴즈 세트 감지 → 패널 자동 오픈 ──
+  __panelBridge.on('turnEnd', () => {
+    const quiz = __panelBridge.data?.quiz || {};
+    if (!quiz.set_id || !quiz.questions || quiz.questions.length === 0) return;
+
+    const lastSetId = sessionStorage.getItem('quiz-last-set');
+    if (quiz.set_id === lastSetId) return; // 이미 열린 세트
+
+    sessionStorage.setItem('quiz-last-set', quiz.set_id);
+    __panelBridge.openModal('quiz', 'dismissible');
+  });
 </script>

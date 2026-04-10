@@ -18,7 +18,7 @@ allowed-tools: Read, Write, Edit, WebSearch, WebFetch
 4. WebSearch로 해당 테마의 흥미로운 상식을 **5개** 검색한다
 5. 다양한 토픽에서 골고루 출제한다 (같은 토픽 3문제 이상 연속 금지)
 6. quiz.json을 **전체 교체**한다 (Write 도구 사용)
-7. variables.json의 `__modals`에 `quiz: "dismissible"`을 설정한다
+7. **`__modals`는 건드리지 마라** — 대시보드 패널의 turnEnd 핸들러가 새 set_id를 감지하고 AI 응답 완료 후 자동으로 퀴즈 패널을 연다
 
 ## quiz.json 세트 형식
 

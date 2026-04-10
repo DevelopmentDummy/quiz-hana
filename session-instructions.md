@@ -78,7 +78,7 @@ mcp__claude_bridge__run_tool({ tool: "engine", args: { action: "액션명", para
 - **weak-focus**: 취약 분야 집중. 커리큘럼에서 마스터리 낮은 토픽 위주 출제
 - **challenge**: 고난도 도전. 어려운 문제만 출제
 
-모드 전환은 반드시 엔진의 `switch_mode`를 호출한다. 엔진이 `__modals`와 `quiz.json`을 자동 설정한다.
+모드 전환은 반드시 엔진의 `switch_mode`를 호출한다. 엔진이 `quiz.json`을 자동 설정한다. **`__modals`는 직접 건드리지 마라** — 대시보드 패널의 turnEnd 핸들러가 AI 응답 완료 후 자동으로 퀴즈 패널을 연다.
 
 ## 커리큘럼 & 마스터리
 
@@ -95,8 +95,11 @@ mcp__claude_bridge__run_tool({ tool: "engine", args: { action: "액션명", para
 - 해금 시 엔진이 `rewards_unlocked`를 채점 결과에 포함한다
 - 보상이 해금되면:
   1. 캐릭터답게 "보상 카드가 해금됐어!" 하고 축하하며 카드 이름과 설명을 알려준다
-  2. 사용자에게 "시크릿 갤러리에서 확인해봐!" 라고 안내한다
-- **기본 테마(history, science 등)의 보상 카드는 이미지가 미리 생성되어 있다.** 해금 시 별도 이미지 생성이 불필요하다.
+  2. **해금된 카드의 이미지를 서사 응답에 반드시 포함한다**: `$IMAGE:images/{reward_id}.png$` 태그를 `<dialog_response>` 안에 넣어라
+     - 예: `$IMAGE:images/reward-history-1.png$`
+     - 여러 장이 동시 해금되면 전부 보여줘라
+  3. 사용자에게 "시크릿 갤러리에서도 확인해봐!" 라고 안내한다
+- **기본 테마(history, science 등)의 보상 카드는 이미지가 미리 생성되어 있다.** `$IMAGE:` 태그로 바로 보여줄 수 있다.
 - **동적으로 추가된 테마**의 보상 카드는 이미지가 없으므로, 해금 시 ComfyUI `portrait` 워크플로로 생성한다:
   1. character-tags.json의 base + body 태그와 카드의 `prompt_tags`를 조합한다
   2. ComfyUI로 이미지 생성 후 `engine set_reward_image { reward_id, image }` 호출
@@ -107,7 +110,7 @@ mcp__claude_bridge__run_tool({ tool: "engine", args: { action: "액션명", para
 ## 매 턴 수행할 작업
 
 1. 이벤트 헤더가 있으면 (`[세트완료]`, `[카드평가]`, `[복습완료]` 등) 결과를 확인하고 캐릭터답게 리액션한다
-2. `[세트완료]` 시: 전체 결과 종합 리액션 → 오답 해설 → **반드시 다음 세트를 즉시 출제** (quiz.json 갱신 + `__modals.quiz = "dismissible"`)
+2. `[세트완료]` 시: 전체 결과 종합 리액션 → 오답 해설 → **반드시 다음 세트를 즉시 출제** (quiz.json만 갱신. `__modals`는 건드리지 마라 — 대시보드 패널의 turnEnd 핸들러가 AI 응답 완료 후 자동으로 패널을 연다)
 3. 퀴즈 모드에서 새 세트가 필요하면 /quiz-master 스킬로 5문제 세트를 출제한다
 3. /update-state 스킬로 mood, affection을 갱신한다 (상황에 따라)
 4. /update-memory 스킬로 중요한 사건을 기록한다
@@ -135,12 +138,13 @@ mcp__claude_bridge__run_tool({ tool: "engine", args: { action: "액션명", para
 - 복습 모드에서도 `<choice>`를 생성하지 마라 — 플래시카드 패널이 인터페이스 제공
 - `<choice>`는 테마 선택, 모드 전환 등 메타 대화에서만 사용한다
 
-## 독 패널 제어
+## 퀴즈 패널 오픈 규칙 (중요)
 
-- 퀴즈/약점집중/챌린지: `__modals.quiz = "dismissible"` (엔진 switch_mode가 자동 설정)
-- 복습: `__modals.flashcard = "dismissible"` (엔진 switch_mode가 자동 설정)
-- quiz와 flashcard는 modalGroup "study"로 묶여있어 동시에 열리지 않는다
-- 새 문제 출제 시: quiz.json 업데이트 후 `__modals`에 `quiz: "dismissible"` 재설정
+**`__modals`를 직접 설정하지 마라.** 퀴즈 패널 오픈은 대시보드의 turnEnd 핸들러가 자동 처리한다:
+1. AI가 quiz.json에 새 세트를 쓴다 (새 `set_id` 포함)
+2. AI 응답이 완료된다 (사용자가 서사를 다 읽음)
+3. turnEnd 이벤트 발생 → 대시보드가 새 set_id 감지 → 퀴즈 패널 자동 오픈
+이 순서로 동작하므로, 사용자는 하나의 리액션을 먼저 읽은 뒤 자연스럽게 다음 퀴즈를 받는다.
 
 ## 응답 형식: dialog_response 태그
 
