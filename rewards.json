@@ -1,0 +1,348 @@
+{
+  "milestones": {
+    "tier_1": {
+      "min_questions": 10,
+      "min_accuracy": 0.55
+    },
+    "tier_2": {
+      "min_questions": 25,
+      "min_accuracy": 0.65
+    },
+    "tier_3": {
+      "min_questions": 50,
+      "min_accuracy": 0.75
+    }
+  },
+  "cards": [
+    {
+      "id": "reward-history-1",
+      "theme_id": "history",
+      "tier": 1,
+      "title": "조선의 꽃",
+      "description": "궁궐 뜰에서 한복 차림의 하나",
+      "prompt_tags": "hanbok, korean traditional clothes, off shoulder, bare shoulders, collarbone, palace garden, cherry blossoms, wind, looking at viewer, gentle smile",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-history-1.png"
+    },
+    {
+      "id": "reward-history-2",
+      "theme_id": "history",
+      "tier": 2,
+      "title": "고딕 프린세스",
+      "description": "고딕 성에서 드레스를 입은 하나",
+      "prompt_tags": "gothic lolita, black dress, frilled dress, corset, cleavage, dark castle, stained glass, candles, elegant, mysterious smile",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-history-2.png"
+    },
+    {
+      "id": "reward-history-3",
+      "theme_id": "history",
+      "tier": 3,
+      "title": "나일의 여신",
+      "description": "이집트 신전의 여신 하나",
+      "prompt_tags": "egyptian, white dress, gold jewelry, necklace, armlet, midriff, navel, bare legs, ancient temple, sunset, seductive pose, confident expression",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-history-3.png"
+    },
+    {
+      "id": "reward-science-1",
+      "theme_id": "science",
+      "tier": 1,
+      "title": "연구원 하나",
+      "description": "실험실에서 연구 중인 하나",
+      "prompt_tags": "lab coat, open coat, glasses, short skirt, thighhighs, black thighhighs, laboratory, test tubes, looking over glasses, smirk",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-science-1.png"
+    },
+    {
+      "id": "reward-science-2",
+      "theme_id": "science",
+      "tier": 2,
+      "title": "사이버 에이전트",
+      "description": "사이버 공간의 에이전트 하나",
+      "prompt_tags": "bodysuit, tight clothing, glowing lines, neon blue, cybernetic, hologram, futuristic city, night, dynamic pose, cool expression",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-science-2.png"
+    },
+    {
+      "id": "reward-science-3",
+      "theme_id": "science",
+      "tier": 3,
+      "title": "스타 가디언",
+      "description": "우주를 지키는 전사 하나",
+      "prompt_tags": "magical girl, star themed, bikini armor, thigh boots, cape, wand, space background, stars, sparkles, heroic pose, confident",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-science-3.png"
+    },
+    {
+      "id": "reward-geography-1",
+      "theme_id": "geography",
+      "tier": 1,
+      "title": "여행자 하나",
+      "description": "트로피컬 여행지의 하나",
+      "prompt_tags": "tank top, denim shorts, camera, backpack, tropical, palm trees, sunlight, adventure, excited expression, peace sign",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-geography-1.png"
+    },
+    {
+      "id": "reward-geography-2",
+      "theme_id": "geography",
+      "tier": 2,
+      "title": "비치 앤젤",
+      "description": "해변에서 비키니 차림의 하나",
+      "prompt_tags": "bikini, white bikini, sunhat, beach, ocean, sunset, wet skin, sand, standing in water, playful smile, hair blowing",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-geography-2.png"
+    },
+    {
+      "id": "reward-geography-3",
+      "theme_id": "geography",
+      "tier": 3,
+      "title": "스카이 캡틴",
+      "description": "하늘 위의 파일럿 하나",
+      "prompt_tags": "pilot uniform, mini skirt, cap, open jacket, cleavage, cockpit, sky, clouds, confident, salute, wink",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-geography-3.png"
+    },
+    {
+      "id": "reward-movies-1",
+      "theme_id": "movies",
+      "tier": 1,
+      "title": "레드카펫의 밤",
+      "description": "시상식 레드카펫의 하나",
+      "prompt_tags": "red dress, evening gown, backless dress, high heels, red carpet, spotlights, camera flash, elegant, glamorous, over shoulder look",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-movies-1.png"
+    },
+    {
+      "id": "reward-movies-2",
+      "theme_id": "movies",
+      "tier": 2,
+      "title": "미스터리 에이전트",
+      "description": "비밀 임무 중인 스파이 하나",
+      "prompt_tags": "spy, black catsuit, latex, gun, city night, neon lights, rooftop, wind, action pose, serious expression, cool",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-movies-2.png"
+    },
+    {
+      "id": "reward-movies-3",
+      "theme_id": "movies",
+      "tier": 3,
+      "title": "골든 디바",
+      "description": "최고의 여배우 하나",
+      "prompt_tags": "gold dress, sequin dress, trophy, tiara, stage, golden lights, confetti, bare shoulders, slit dress, thigh, triumphant smile",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-movies-3.png"
+    },
+    {
+      "id": "reward-food-1",
+      "theme_id": "food",
+      "tier": 1,
+      "title": "오빠의 셰프",
+      "description": "요리 중인 앞치마 차림의 하나",
+      "prompt_tags": "apron, frilly apron, bare legs, kitchen, cooking, wooden spoon, flour on cheek, warm lighting, cheerful, wink",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-food-1.png"
+    },
+    {
+      "id": "reward-food-2",
+      "theme_id": "food",
+      "tier": 2,
+      "title": "와인 소믈리에",
+      "description": "와인 바에서 드레스를 입은 하나",
+      "prompt_tags": "black dress, wine glass, red wine, bar counter, dim lighting, candles, elegant, mature atmosphere, seductive smile, legs crossed",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-food-2.png"
+    },
+    {
+      "id": "reward-food-3",
+      "theme_id": "food",
+      "tier": 3,
+      "title": "쿠킹 퀸",
+      "description": "요리 대회 우승자 하나",
+      "prompt_tags": "chef hat, crop top, midriff, navel, short shorts, presenting gourmet dish, trophy, confetti, kitchen studio, proud expression, hands on hips",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-food-3.png"
+    },
+    {
+      "id": "reward-sports-1",
+      "theme_id": "sports",
+      "tier": 1,
+      "title": "운동 소녀",
+      "description": "체육관에서 운동 중인 하나",
+      "prompt_tags": "sports bra, bike shorts, ponytail, gym, dumbbells, sweat, towel around neck, energetic, thumbs up, bright smile",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-sports-1.png"
+    },
+    {
+      "id": "reward-sports-2",
+      "theme_id": "sports",
+      "tier": 2,
+      "title": "응원의 별",
+      "description": "치어리더 유니폼의 하나",
+      "prompt_tags": "cheerleader, pom poms, mini skirt, crop top, stadium, crowd, jumping, high kick, energetic, open mouth smile, dynamic",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-sports-2.png"
+    },
+    {
+      "id": "reward-sports-3",
+      "theme_id": "sports",
+      "tier": 3,
+      "title": "풀사이드 인어",
+      "description": "수영장에서 수영복 차림의 하나",
+      "prompt_tags": "swimsuit, one piece swimsuit, pool, poolside, wet hair, water drops, lounging, sunlight, reflections, alluring, relaxed smile",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-sports-3.png"
+    },
+    {
+      "id": "reward-music-1",
+      "theme_id": "music",
+      "tier": 1,
+      "title": "데뷔 무대",
+      "description": "아이돌 의상을 입은 하나",
+      "prompt_tags": "idol costume, frilly outfit, stage, microphone, spotlights, sparkles, glowsticks, concert, singing, excited, open mouth",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-music-1.png"
+    },
+    {
+      "id": "reward-music-2",
+      "theme_id": "music",
+      "tier": 2,
+      "title": "재즈 나이트",
+      "description": "재즈 바에서 노래하는 하나",
+      "prompt_tags": "sequin dress, strapless, jazz bar, microphone stand, dim blue light, smoke, nightclub, mature, sultry expression, closed eyes singing",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-music-2.png"
+    },
+    {
+      "id": "reward-music-3",
+      "theme_id": "music",
+      "tier": 3,
+      "title": "록 페스티벌",
+      "description": "록 페스티벌의 펑크 하나",
+      "prompt_tags": "punk fashion, torn clothes, fishnet stockings, leather jacket, electric guitar, concert stage, crowd, fire effects, rebellious, tongue out, rock and roll",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-music-3.png"
+    },
+    {
+      "id": "reward-it-1",
+      "theme_id": "it",
+      "tier": 1,
+      "title": "게이머 하나",
+      "description": "게임 중인 하나",
+      "prompt_tags": "gaming headset, oversized hoodie, bare legs, thighs, gaming chair, multiple monitors, RGB lighting, dark room, focused expression, controller",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-it-1.png"
+    },
+    {
+      "id": "reward-it-2",
+      "theme_id": "it",
+      "tier": 2,
+      "title": "사이버 닌자",
+      "description": "사이버펑크 도시의 하나",
+      "prompt_tags": "cyberpunk, neon, bodysuit, visor, katana, rain, neon city, holographic signs, rooftop, dynamic pose, glowing eyes",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-it-2.png"
+    },
+    {
+      "id": "reward-it-3",
+      "theme_id": "it",
+      "tier": 3,
+      "title": "메이드 프로그래머",
+      "description": "메이드복을 입고 코딩하는 하나",
+      "prompt_tags": "maid outfit, short maid dress, thighhighs, frills, headband, laptop, code on screen, dual monitors, cozy room, playful, cat ears",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-it-3.png"
+    },
+    {
+      "id": "reward-general-1",
+      "theme_id": "general",
+      "tier": 1,
+      "title": "하이틴 하나",
+      "description": "교복 차림의 하나",
+      "prompt_tags": "school uniform, serafuku, pleated skirt, short skirt, loose socks, school bag, cherry blossoms, school gate, youthful, smile, peace sign",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-general-1.png"
+    },
+    {
+      "id": "reward-general-2",
+      "theme_id": "general",
+      "tier": 2,
+      "title": "하나 선생님",
+      "description": "선생님이 된 하나",
+      "prompt_tags": "teacher, glasses, pencil skirt, tight blouse, open collar, chalkboard, classroom, pointer, mature, smirk, crossed arms",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-general-2.png"
+    },
+    {
+      "id": "reward-general-3",
+      "theme_id": "general",
+      "tier": 3,
+      "title": "졸업의 비밀",
+      "description": "졸업식의 비밀스러운 하나",
+      "prompt_tags": "graduation gown, open gown, lingerie underneath, lace bra, thighhighs, diploma, confetti, rooftop, sunset, teasing expression, finger to lips",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-general-3.png"
+    },
+    {
+      "id": "reward-sex-ed-1",
+      "theme_id": "sex-ed",
+      "tier": 1,
+      "title": "나이팅게일",
+      "description": "간호사 유니폼의 하나",
+      "prompt_tags": "nurse uniform, nurse cap, short skirt, white stockings, stethoscope, clinic, medical chart, caring smile, leaning forward, cleavage",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-sex-ed-1.png"
+    },
+    {
+      "id": "reward-sex-ed-2",
+      "theme_id": "sex-ed",
+      "tier": 2,
+      "title": "보건실의 비밀",
+      "description": "보건 교사 하나",
+      "prompt_tags": "lab coat, unbuttoned, underwear visible, black lingerie, infirmary, curtain, bed, dim light, mature, seductive smile, beckoning",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-sex-ed-2.png"
+    },
+    {
+      "id": "reward-sex-ed-3",
+      "theme_id": "sex-ed",
+      "tier": 3,
+      "title": "시크릿 가든",
+      "description": "비밀 정원의 하나",
+      "prompt_tags": "lingerie, white lace, see-through, garter belt, thighhighs, flower garden, roses, moonlight, petals falling, bedroom eyes, lying on flowers, alluring",
+      "unlocked": false,
+      "unlocked_at": null,
+      "image": "reward-sex-ed-3.png"
+    }
+  ]
+}

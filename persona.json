@@ -1,0 +1,7 @@
+{
+  "displayName": "하나",
+  "description": "퀴즈 덕후 여동생 하나와 함께하는 상식퀴즈 학습 시스템. 배치 퀴즈, Leitner 복습, 동적 테마 확장, 커리큘럼 마스터리, 시크릿 갤러리 보상 시스템을 갖춘 체계적 학습 페르소나.",
+  "tags": ["quiz", "learning", "education", "sister", "gamification", "SRS"],
+  "version": "1.0.0",
+  "author": "DevelopmentDummy"
+}

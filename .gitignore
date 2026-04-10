@@ -1,0 +1,18 @@
+# Session data (user-specific)
+chat-history.json
+memory.md
+builder-session.json
+claude-stream.log
+
+# Auto-generated session files
+CLAUDE.md
+AGENTS.md
+GEMINI.md
+.mcp.json
+policy-context.json
+
+# IDE/tool dirs
+.claude/
+.agents/
+.gemini/
+.codex/

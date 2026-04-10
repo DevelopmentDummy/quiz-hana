@@ -1,0 +1,182 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+  :host { display: block; font-family: 'Segoe UI', -apple-system, sans-serif; color: #f0e8f8; font-size: 13px; }
+
+  .dash { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+
+  /* ── Score Hero ── */
+  .score-hero {
+    background: linear-gradient(135deg, #2f1845, #3a1e55);
+    border-radius: 12px; padding: 16px; text-align: center;
+    border: 1px solid #4a2d6a;
+  }
+  .score-num { font-family: 'Jua', sans-serif; font-size: 38px; color: #ff6b9d; line-height: 1; }
+  .score-lbl { color: #9888b0; font-size: 10px; letter-spacing: 2px; margin-top: 2px; }
+  .streak-pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #ff6b9d22; border: 1px solid #ff6b9d44;
+    border-radius: 20px; padding: 3px 12px; font-size: 12px; margin-top: 8px; color: #ff9dbc;
+  }
+
+  /* ── Section ── */
+  .sec {
+    background: #251a35; border-radius: 10px; padding: 10px 12px;
+    border: 1px solid #3a2d50;
+  }
+  .sec-title { font-size: 10px; color: #9888b0; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+
+  /* ── Stat rows ── */
+  .row { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; }
+  .lbl { color: #9888b0; font-size: 12px; }
+  .val { color: #f0e8f8; font-size: 12px; font-weight: 600; }
+
+  /* ── Progress bar ── */
+  .bar-wrap { width: 100%; height: 6px; background: #1a1028; border-radius: 3px; overflow: hidden; margin: 4px 0; }
+  .bar-fill { height: 100%; background: linear-gradient(90deg, #ff6b9d, #ff9dbc); border-radius: 3px; }
+
+  /* ── Mode badge ── */
+  .mode { display: inline-flex; padding: 2px 10px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .mode-quiz       { background: #ff6b9d22; color: #ff9dbc; border: 1px solid #ff6b9d44; }
+  .mode-review     { background: #6b9dff22; color: #9dbcff; border: 1px solid #6b9dff44; }
+  .mode-weak-focus { background: #ffb86b22; color: #ffd4a0; border: 1px solid #ffb86b44; }
+  .mode-challenge  { background: #ff4d4d22; color: #ff8888; border: 1px solid #ff4d4d44; }
+
+  /* ── Theme list ── */
+  .theme-row { display: flex; align-items: center; gap: 6px; padding: 2px 0; font-size: 12px; }
+  .theme-icon { width: 16px; text-align: center; font-size: 13px; }
+  .theme-name { flex: 1; color: #c8b8e0; }
+  .theme-pct  { color: #9888b0; font-size: 11px; min-width: 28px; text-align: right; }
+  .no-data    { color: #6a5880; font-size: 11px; font-style: italic; padding: 4px 0; }
+
+  /* ── Affection ── */
+  .aff-row { display: flex; align-items: center; gap: 6px; }
+  .aff-bar { flex: 1; height: 4px; background: #1a1028; border-radius: 2px; overflow: hidden; }
+  .aff-fill { height: 100%; background: linear-gradient(90deg, #ff6b9d, #ff4d88); border-radius: 2px; }
+
+  /* ── Buttons ── */
+  .btn-review {
+    width: 100%; padding: 8px; border: 1px solid #6b9dff44; background: #6b9dff18;
+    color: #9dbcff; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600;
+  }
+  .btn-review:hover { background: #6b9dff33; }
+  .btn-cur {
+    width: 100%; padding: 6px; border: 1px solid #3a2d50; background: transparent;
+    color: #9888b0; border-radius: 6px; cursor: pointer; font-size: 11px;
+  }
+  .btn-cur:hover { background: #2f2245; color: #f0e8f8; }
+  .btn-quiz {
+    width: 100%; padding: 8px; border: 1px solid #ff6b9d44; background: #ff6b9d12;
+    color: #ff9dbc; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600;
+    transition: all 0.2s;
+  }
+  .btn-quiz:hover { background: #ff6b9d28; box-shadow: 0 0 12px #ff6b9d22; }
+  .btn-reward {
+    width: 100%; padding: 8px; border: 1px solid #ffd70044; background: #ffd70012;
+    color: #ffd700; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600;
+    transition: all 0.2s;
+  }
+  .btn-reward:hover { background: #ffd70028; box-shadow: 0 0 12px #ffd70022; }
+</style>
+
+<div class="dash">
+  <!-- Score -->
+  <div class="score-hero">
+    <div class="score-num">{{score}}</div>
+    <div class="score-lbl">SCORE</div>
+    {{#if (gt streak 0)}}
+    <div class="streak-pill">⚡ {{streak}}연속 정답</div>
+    {{/if}}
+  </div>
+
+  <!-- Stats -->
+  <div class="sec">
+    <div class="sec-title">📊 학습 현황</div>
+    <div class="row">
+      <span class="lbl">정답률</span>
+      <span class="val">{{#if (gt total_questions 0)}}{{percentage correct_answers total_questions}}%{{else}}—{{/if}}</span>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-fill" style="width:{{#if (gt total_questions 0)}}{{percentage correct_answers total_questions}}{{else}}0{{/if}}%"></div>
+    </div>
+    <div class="row"><span class="lbl">총 문제</span><span class="val">{{total_questions}}</span></div>
+    <div class="row"><span class="lbl">최고 연속</span><span class="val">{{best_streak}}</span></div>
+    <div class="row"><span class="lbl">난이도</span><span class="val">{{difficulty}}</span></div>
+    <div class="row">
+      <span class="lbl">모드</span>
+      <span class="mode mode-{{app_mode}}">
+        {{#if (eq app_mode "quiz")}}🎯 퀴즈{{/if}}
+        {{#if (eq app_mode "review")}}📚 복습{{/if}}
+        {{#if (eq app_mode "weak-focus")}}🎯 취약집중{{/if}}
+        {{#if (eq app_mode "challenge")}}🔥 챌린지{{/if}}
+      </span>
+    </div>
+  </div>
+
+  <!-- Themes -->
+  <div class="sec">
+    <div class="sec-title">🏆 테마별 현황</div>
+    {{#each curriculum.themes}}
+    {{#if (gt this.total 0)}}
+    <div class="theme-row">
+      <span class="theme-icon">{{this.icon}}</span>
+      <span class="theme-name">{{this.name}}</span>
+      <span class="theme-pct">{{percentage this.correct this.total}}%</span>
+    </div>
+    {{/if}}
+    {{/each}}
+    {{#if (eq total_questions 0)}}
+    <div class="no-data">아직 퀴즈를 풀지 않았어!</div>
+    {{/if}}
+  </div>
+
+  <!-- Character -->
+  <div class="sec">
+    <div class="sec-title">💕 하나</div>
+    <div class="row"><span class="lbl">기분</span><span class="val">{{mood}}</span></div>
+    <div class="aff-row">
+      <span class="lbl" style="font-size:11px">호감</span>
+      <div class="aff-bar"><div class="aff-fill" style="width:{{percentage affection affection_max}}%"></div></div>
+      <span class="val" style="font-size:11px">{{affection}}</span>
+    </div>
+    <div class="row"><span class="lbl">장소</span><span class="val">{{location}}</span></div>
+  </div>
+
+  <!-- Actions -->
+  {{#if (eq app_mode "quiz")}}
+  <button class="btn-quiz" data-action="open-quiz">🎯 퀴즈 패널 열기</button>
+  {{else}}
+  <button class="btn-quiz" data-action="switch-quiz">🎯 퀴즈 모드로 전환</button>
+  {{/if}}
+  {{#if (gt due_cards_count 0)}}
+  <button class="btn-review" data-action="switch-review">📋 복습 대기 {{due_cards_count}}장 — 복습 시작</button>
+  {{/if}}
+  <button class="btn-cur" data-action="curriculum">📊 커리큘럼 상세 보기</button>
+  <button class="btn-reward" data-action="rewards">✨ 시크릿 갤러리</button>
+</div>
+
+<script>
+  // 퀴즈 모드일 때: 퀴즈 모달만 열기
+  shadow.querySelector('[data-action="open-quiz"]')?.addEventListener('click', () => {
+    __panelBridge.openModal('quiz', 'dismissible');
+  });
+
+  // 다른 모드일 때: 퀴즈 모드로 전환 + 모달 열기
+  shadow.querySelector('[data-action="switch-quiz"]')?.addEventListener('click', async () => {
+    await __panelBridge.runTool('engine', { action: 'switch_mode', params: { mode: 'quiz' } });
+    __panelBridge.queueEvent('[모드전환:quiz]');
+    __panelBridge.openModal('quiz', 'dismissible');
+  });
+
+  // 복습 모드 전환
+  shadow.querySelector('[data-action="switch-review"]')?.addEventListener('click', async () => {
+    await __panelBridge.runTool('engine', { action: 'switch_mode', params: { mode: 'review' } });
+    __panelBridge.queueEvent('[모드전환:review]');
+  });
+
+  shadow.querySelector('[data-action="curriculum"]')?.addEventListener('click', () => {
+    __panelBridge.openModal('curriculum', 'dismissible');
+  });
+  shadow.querySelector('[data-action="rewards"]')?.addEventListener('click', () => {
+    __panelBridge.openModal('rewards', 'dismissible');
+  });
+</script>

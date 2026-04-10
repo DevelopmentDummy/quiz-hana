@@ -1,0 +1,28 @@
+{
+  "panels": {
+    "size": 280,
+    "placement": {
+      "dashboard": "right",
+      "quiz": "modal",
+      "curriculum": "modal",
+      "rewards": "modal"
+    },
+    "dockHeight": 600,
+    "dockWidth": 460
+  },
+  "chat": {
+    "maxWidth": null,
+    "align": "stretch"
+  },
+  "theme": {
+    "accent": "#ff6b9d",
+    "bg": "#1a1028",
+    "surface": "#251a35",
+    "surfaceLight": "#2f2245",
+    "userBubble": "#352a4a",
+    "assistantBubble": "#2a1f3e",
+    "border": "#3a2d50",
+    "text": "#f0e8f8",
+    "textDim": "#9888b0"
+  }
+}

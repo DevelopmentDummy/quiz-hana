@@ -1,0 +1,123 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+  :host { display: block; font-family: 'Segoe UI', -apple-system, sans-serif; color: #f0e8f8; font-size: 13px; }
+
+  .cur-wrap { padding: 20px; max-width: 520px; margin: 0 auto; }
+
+  .cur-header { text-align: center; margin-bottom: 16px; }
+  .cur-title { font-family: 'Jua', sans-serif; font-size: 20px; color: #ff6b9d; }
+  .cur-subtitle { font-size: 12px; color: #9888b0; margin-top: 4px; }
+
+  .overview {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+    margin-bottom: 16px;
+  }
+  .ov-card {
+    background: #2f2245; border-radius: 10px; padding: 12px; text-align: center;
+    border: 1px solid #3a2d50;
+  }
+  .ov-num { font-family: 'Jua', sans-serif; font-size: 22px; color: #ff9dbc; }
+  .ov-lbl { font-size: 10px; color: #9888b0; margin-top: 2px; }
+
+  .theme-section { margin-bottom: 10px; }
+  .theme-header {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 10px; background: #251a35; border-radius: 8px;
+    border: 1px solid #3a2d50; cursor: pointer; transition: background 0.15s;
+  }
+  .theme-header:hover { background: #2f2245; }
+  .t-icon { font-size: 16px; }
+  .t-name { flex: 1; font-weight: 600; color: #e0d8f0; }
+  .t-stats { font-size: 11px; color: #9888b0; }
+  .t-pct {
+    font-size: 12px; font-weight: 600; min-width: 36px; text-align: right;
+    padding: 2px 8px; border-radius: 6px;
+  }
+  .pct-high { background: #9dff6b22; color: #bcff9d; }
+  .pct-mid  { background: #ffb86b22; color: #ffd4a0; }
+  .pct-low  { background: #ff4d4d22; color: #ff8888; }
+
+  .topics { padding: 4px 0 4px 28px; display: none; }
+  .topics.open { display: block; }
+
+  .topic-row {
+    display: flex; align-items: center; gap: 6px;
+    padding: 5px 8px; border-radius: 6px; margin: 2px 0;
+  }
+  .topic-row:hover { background: #2f224533; }
+  .tp-name { flex: 1; color: #c8b8e0; font-size: 12px; }
+  .tp-stars { color: #ff6b9d; font-size: 11px; letter-spacing: 1px; }
+  .tp-info { font-size: 11px; color: #9888b0; }
+
+  .weak-section { margin-top: 16px; }
+  .weak-title {
+    font-size: 12px; color: #ff8888; font-weight: 600;
+    padding: 6px 10px; background: #ff4d4d11; border-radius: 8px;
+    border: 1px solid #ff4d4d33; margin-bottom: 6px;
+  }
+  .weak-item {
+    display: flex; align-items: center; gap: 6px;
+    padding: 4px 10px; font-size: 12px;
+  }
+  .weak-name { flex: 1; color: #ffd4a0; }
+  .weak-pct { color: #ff8888; font-weight: 600; }
+
+  .empty-msg { text-align: center; padding: 20px; color: #6a5880; font-style: italic; }
+</style>
+
+<div class="cur-wrap">
+  <div class="cur-header">
+    <div class="cur-title">📊 학습 커리큘럼</div>
+    <div class="cur-subtitle">테마별 학습 진행도와 마스터리</div>
+  </div>
+
+  <div class="overview">
+    <div class="ov-card"><div class="ov-num">{{total_questions}}</div><div class="ov-lbl">총 문제</div></div>
+    <div class="ov-card"><div class="ov-num">{{#if (gt total_questions 0)}}{{percentage correct_answers total_questions}}%{{else}}—{{/if}}</div><div class="ov-lbl">정답률</div></div>
+    <div class="ov-card"><div class="ov-num">{{best_streak}}</div><div class="ov-lbl">최고 연속</div></div>
+  </div>
+
+  {{#each curriculum.themes}}
+  {{#if (gt this.total 0)}}
+  <div class="theme-section">
+    <div class="theme-header" data-theme="{{@key}}">
+      <span class="t-icon">{{this.icon}}</span>
+      <span class="t-name">{{this.name}}</span>
+      <span class="t-stats">{{this.total}}문제</span>
+      <span class="t-pct {{#if (gte (percentage this.correct this.total) 75)}}pct-high{{else}}{{#if (gte (percentage this.correct this.total) 50)}}pct-mid{{else}}pct-low{{/if}}{{/if}}">
+        {{percentage this.correct this.total}}%
+      </span>
+    </div>
+    <div class="topics" data-topics="{{@key}}">
+      {{#each this.topics}}
+      <div class="topic-row">
+        <span class="tp-stars">
+          {{#if (eq this.mastery 3)}}★★★{{/if}}
+          {{#if (eq this.mastery 2)}}★★☆{{/if}}
+          {{#if (eq this.mastery 1)}}★☆☆{{/if}}
+          {{#if (eq this.mastery 0)}}☆☆☆{{/if}}
+        </span>
+        <span class="tp-name">{{this.name}}</span>
+        <span class="tp-info">{{this.total}}문제 · {{percentage this.correct this.total}}%</span>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+  {{/if}}
+  {{/each}}
+
+  {{#if (eq total_questions 0)}}
+  <div class="empty-msg">아직 학습 데이터가 없어요! 퀴즈를 시작해보세요 🌟</div>
+  {{/if}}
+</div>
+
+<script>
+  // Toggle theme topics
+  shadow.querySelectorAll('.theme-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const key = header.dataset.theme;
+      const topics = shadow.querySelector('[data-topics="' + key + '"]');
+      if (topics) topics.classList.toggle('open');
+    });
+  });
+</script>

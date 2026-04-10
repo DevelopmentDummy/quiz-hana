@@ -1,0 +1,36 @@
+{
+  "score": {
+    "format": "{value}점"
+  },
+  "streak": {
+    "format": "{value}연속",
+    "tiers": [
+      { "max": 0, "hint": "" },
+      { "max": 2, "hint": "시작!" },
+      { "max": 4, "hint": "좋은 흐름" },
+      { "max": 7, "hint": "달리는 중!" },
+      { "max": 100, "hint": "미쳤다!" }
+    ]
+  },
+  "affection": {
+    "format": "{value}/{max}",
+    "max_key": "affection_max",
+    "tier_mode": "percentage",
+    "tiers": [
+      { "max": 20, "hint": "아직 서먹" },
+      { "max": 40, "hint": "조금 친해짐" },
+      { "max": 60, "hint": "꽤 편해짐" },
+      { "max": 80, "hint": "많이 친해짐" },
+      { "max": 100, "hint": "완전 의지하는 사이" }
+    ]
+  },
+  "due_cards_count": {
+    "format": "{value}장",
+    "tiers": [
+      { "max": 0, "hint": "복습 완료!" },
+      { "max": 5, "hint": "조금 남음" },
+      { "max": 15, "hint": "복습 필요" },
+      { "max": 100, "hint": "복습 쌓이는 중" }
+    ]
+  }
+}

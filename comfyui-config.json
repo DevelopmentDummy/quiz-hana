@@ -1,0 +1,19 @@
+{
+  "active_preset": "anime",
+  "presets": {
+    "anime": {
+      "checkpoint": "boleromixIllustrious_v900.safetensors",
+      "default_template": "scene",
+      "quality_tags": "masterpiece, best quality, amazing quality, very aesthetic, absurdres, high detail",
+      "style_tags": "anime screencap, anime coloring, flat color, watercolor, soft lighting",
+      "negative": "bad quality, worst quality, worst detail, lowres, bad anatomy, bad hands, extra fingers, fused fingers, too many fingers, mutated hands, poorly drawn hands, poorly drawn face, extra arms, extra legs, blurry, jpeg artifacts, sketch, censored, watermark, signature, text, cropped, monochrome, grayscale, 3d, realistic, photorealistic"
+    },
+    "semi-real": {
+      "checkpoint": "bismuthIllustrious_v70.safetensors",
+      "default_template": "scene-real",
+      "quality_tags": "masterpiece, HD, very aesthetic, best quality, 8k, amazing quality, absurdres, high detail, very awa",
+      "style_tags": "lineless, depth of field, cinematic lighting, atmospheric, catchlight, fair skin, matte skin",
+      "negative": "bad quality, worst quality, worst detail, lowres, bad anatomy, bad hands, extra fingers, fused fingers, too many fingers, mutated hands, poorly drawn hands, poorly drawn face, extra arms, extra legs, blurry, jpeg artifacts, sketch, censored, watermark, signature, text, cropped, monochrome, grayscale"
+    }
+  }
+}

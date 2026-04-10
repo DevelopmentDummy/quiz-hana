@@ -1,0 +1,14 @@
+{
+  "enabled": false,
+  "ttsProvider": "edge",
+  "edgeVoice": "ko-KR-SunHiNeural",
+  "edgeRate": "",
+  "edgePitch": "",
+  "referenceAudio": "",
+  "referenceText": "",
+  "design": "",
+  "language": "ko",
+  "voiceFile": "",
+  "chunkDelay": 500,
+  "modelSize": "1.7B"
+}

@@ -1,0 +1,19 @@
+{
+  "themes": {
+    "history":   { "name": "역사",        "icon": "📜", "total": 0, "correct": 0, "topics": {} },
+    "science":   { "name": "과학",        "icon": "🔬", "total": 0, "correct": 0, "topics": {} },
+    "geography": { "name": "지리",        "icon": "🌍", "total": 0, "correct": 0, "topics": {} },
+    "movies":    { "name": "영화/드라마", "icon": "🎬", "total": 0, "correct": 0, "topics": {} },
+    "food":      { "name": "음식",        "icon": "🍳", "total": 0, "correct": 0, "topics": {} },
+    "sports":    { "name": "스포츠",      "icon": "⚽", "total": 0, "correct": 0, "topics": {} },
+    "music":     { "name": "음악",        "icon": "🎵", "total": 0, "correct": 0, "topics": {} },
+    "it":        { "name": "IT/기술",     "icon": "💻", "total": 0, "correct": 0, "topics": {} },
+    "general":   { "name": "일반상식",    "icon": "💡", "total": 0, "correct": 0, "topics": {} },
+    "sex-ed":    { "name": "성교육",      "icon": "💊", "total": 0, "correct": 0, "topics": {} }
+  },
+  "mastery_thresholds": {
+    "1": { "min_questions": 5,  "min_accuracy": 0.6 },
+    "2": { "min_questions": 10, "min_accuracy": 0.75 },
+    "3": { "min_questions": 20, "min_accuracy": 0.9 }
+  }
+}

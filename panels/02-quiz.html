@@ -1,0 +1,349 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;600;700&display=swap');
+  :host { font-family: 'Noto Sans KR', sans-serif; color: #f0e8f8; display: block; }
+
+  .quiz-dock { padding: 10px 14px; }
+
+  /* ── Set Header ── */
+  .set-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px; padding: 0 2px;
+  }
+  .q-label { font-family: 'Jua', sans-serif; color: #c084fc; font-size: 15px; }
+  .set-dots { display: flex; gap: 4px; align-items: center; }
+  .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #3a2d50; transition: all 0.3s;
+  }
+  .dot.current { background: #ff6b9d; box-shadow: 0 0 6px #ff6b9d88; }
+  .dot.correct { background: #9dff6b; }
+  .dot.wrong   { background: #ff4d4d; }
+  .set-count { font-size: 12px; color: #9888b0; }
+
+  /* ── Question ── */
+  .question-box {
+    padding: 10px 16px;
+    background: linear-gradient(135deg, #2d1b4e, #1e1535);
+    border-radius: 12px; border-left: 3px solid #c084fc;
+    margin-bottom: 12px; line-height: 1.6; font-size: 14px; font-weight: 600;
+  }
+
+  /* ── Choices ── */
+  .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .card {
+    display: flex; align-items: center; gap: 10px;
+    padding: 11px 14px; background: #251a35; border: 1px solid #3a2d5080;
+    border-radius: 12px; cursor: pointer; color: #f0e8f8; font-size: 13px;
+    text-align: left; line-height: 1.4; position: relative; overflow: hidden;
+    transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .card::before {
+    content: ''; position: absolute; inset: 0; border-radius: 12px;
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .card:nth-child(1)::before { background: linear-gradient(135deg, #ff6b9d10, #ff6b9d05); }
+  .card:nth-child(2)::before { background: linear-gradient(135deg, #c084fc10, #c084fc05); }
+  .card:nth-child(3)::before { background: linear-gradient(135deg, #60a5fa10, #60a5fa05); }
+  .card:nth-child(4)::before { background: linear-gradient(135deg, #fbbf2410, #fbbf2405); }
+  .card:hover { transform: translateY(-2px); border-color: transparent; box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+  .card:hover::before { opacity: 1; }
+  .card:nth-child(1):hover { border-color: #ff6b9d60; }
+  .card:nth-child(2):hover { border-color: #c084fc60; }
+  .card:nth-child(3):hover { border-color: #60a5fa60; }
+  .card:nth-child(4):hover { border-color: #fbbf2460; }
+  .card:active { transform: translateY(0); }
+  .card.picked { opacity: 0.5; pointer-events: none; }
+  .card-label {
+    display: flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px; border-radius: 50%;
+    font-family: 'Jua', sans-serif; font-size: 15px; flex-shrink: 0;
+    position: relative; z-index: 1;
+  }
+  .card:nth-child(1) .card-label { background: #ff6b9d25; color: #ff8db5; }
+  .card:nth-child(2) .card-label { background: #c084fc25; color: #d4a5ff; }
+  .card:nth-child(3) .card-label { background: #60a5fa25; color: #93c5fd; }
+  .card:nth-child(4) .card-label { background: #fbbf2425; color: #fcd34d; }
+  .card-text { flex: 1; position: relative; z-index: 1; }
+
+  /* ── Hint ── */
+  .hint-box {
+    margin-top: 10px; padding: 8px 14px;
+    background: #fbbf2408; border: 1px solid #fbbf2420; border-radius: 8px;
+    font-size: 12px; color: #fcd34d;
+    display: flex; align-items: flex-start; gap: 6px; line-height: 1.5;
+  }
+
+  /* ── Completion ── */
+  .set-complete { text-align: center; padding: 24px 16px; }
+  .complete-emoji { font-size: 40px; margin-bottom: 8px; }
+  .complete-title { font-family: 'Jua', sans-serif; font-size: 20px; color: #ff6b9d; }
+  .complete-stats { font-size: 14px; color: #c8b8e0; margin-top: 8px; }
+  .complete-detail { font-size: 12px; color: #9888b0; margin-top: 12px; line-height: 1.6; }
+  .complete-detail .wrong-item { color: #ff8888; }
+
+  /* ── Result Cards ── */
+  .result-list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; text-align: left; }
+  .result-correct-row {
+    display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 4px;
+  }
+  .result-correct-badge {
+    display: inline-flex; align-items: center; gap: 3px;
+    padding: 3px 10px; background: #9dff6b15; border: 1px solid #9dff6b30;
+    border-radius: 8px; font-size: 12px; color: #9dff6b; font-weight: 600;
+  }
+  .wrong-card {
+    background: #251a35; border: 1px solid #3a2d50; border-radius: 12px;
+    padding: 12px 14px; border-left: 3px solid #ff4d4d;
+  }
+  .wrong-card-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .wrong-card-qnum {
+    font-family: 'Jua', sans-serif; font-size: 13px; color: #ff8888;
+  }
+  .wrong-card-topic {
+    font-size: 11px; color: #9888b0; background: #3a2d5060; padding: 2px 8px;
+    border-radius: 6px;
+  }
+  .wrong-card-answers {
+    display: flex; align-items: center; gap: 6px; font-size: 13px; margin-bottom: 8px;
+  }
+  .wrong-card-given {
+    color: #ff4d4d; text-decoration: line-through; font-weight: 600;
+  }
+  .wrong-card-arrow { color: #9888b060; font-size: 11px; }
+  .wrong-card-correct {
+    color: #9dff6b; font-weight: 700;
+  }
+  .wrong-card-explanation {
+    font-size: 12px; color: #c8b8e0; line-height: 1.7;
+    padding: 8px 10px; background: #1e153580; border-radius: 8px;
+  }
+  .all-clear { font-size: 16px; color: #9dff6b; margin-top: 8px; font-weight: 700; }
+
+  /* ── Empty ── */
+  .empty { text-align: center; padding: 24px; color: #9888b060; font-size: 13px; }
+  .empty-icon { font-size: 28px; margin-bottom: 6px; }
+
+  /* ── Transition ── */
+  .slide-in { animation: slideIn 0.2s ease-out; }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+</style>
+
+<div class="quiz-dock">
+  <div class="set-header" data-header style="display:none">
+    <span class="q-label" data-qlabel>Q1.</span>
+    <div class="set-dots" data-dots></div>
+    <span class="set-count" data-count>1/5</span>
+  </div>
+
+  {{#each quiz.questions}}
+  <div class="q-slide" data-qi="{{@index}}" style="display:none">
+    <div class="question-box">{{this.question}}</div>
+    <div class="choices">
+      <button class="card" data-idx="0">
+        <span class="card-label">A</span><span class="card-text">{{lookup this.choices 0}}</span>
+      </button>
+      <button class="card" data-idx="1">
+        <span class="card-label">B</span><span class="card-text">{{lookup this.choices 1}}</span>
+      </button>
+      <button class="card" data-idx="2">
+        <span class="card-label">C</span><span class="card-text">{{lookup this.choices 2}}</span>
+      </button>
+      <button class="card" data-idx="3">
+        <span class="card-label">D</span><span class="card-text">{{lookup this.choices 3}}</span>
+      </button>
+    </div>
+    {{#if this.hint}}
+    <div class="hint-box">💡 {{this.hint}}</div>
+    {{/if}}
+  </div>
+  {{/each}}
+
+  <div class="set-complete" data-complete style="display:none">
+    <div class="complete-emoji">🎉</div>
+    <div class="complete-title">세트 완료!</div>
+    <div class="complete-stats" data-stats></div>
+    <div class="complete-detail" data-detail></div>
+  </div>
+
+  <div class="empty" data-empty>
+    <div class="empty-icon">📝</div>
+    테마를 선택하면 퀴즈가 시작돼요!
+  </div>
+</div>
+
+<script>
+;(function() {
+  const LETTERS = ['A', 'B', 'C', 'D'];
+  const slides = shadow.querySelectorAll('.q-slide');
+  const total = slides.length;
+  if (total === 0) return;
+
+  // Hide empty, show header
+  const emptyEl = shadow.querySelector('[data-empty]');
+  const headerEl = shadow.querySelector('[data-header]');
+  if (emptyEl) emptyEl.style.display = 'none';
+  if (headerEl) headerEl.style.display = 'flex';
+
+  const quizData = __panelBridge.data?.quiz || {};
+  const setId = quizData.set_id || 'default';
+  const stateKey = 'qset-' + setId;
+
+  // Load or init state
+  let state;
+  try { state = JSON.parse(sessionStorage.getItem(stateKey)); } catch(e) { state = null; }
+  if (!state || state.sid !== setId) {
+    state = { sid: setId, idx: 0, ans: [], res: [] };
+  }
+
+  const dotsEl = shadow.querySelector('[data-dots]');
+  const labelEl = shadow.querySelector('[data-qlabel]');
+  const countEl = shadow.querySelector('[data-count]');
+
+  function renderDots() {
+    if (!dotsEl) return;
+    dotsEl.innerHTML = '';
+    for (let i = 0; i < total; i++) {
+      const d = document.createElement('span');
+      d.className = 'dot';
+      if (i < state.ans.length) d.classList.add(state.res[i] ? 'correct' : 'wrong');
+      else if (i === state.idx) d.classList.add('current');
+      dotsEl.appendChild(d);
+    }
+  }
+
+  function showSlide(idx) {
+    slides.forEach(s => s.style.display = 'none');
+    shadow.querySelector('[data-complete]').style.display = 'none';
+    if (idx < total) {
+      const slide = slides[idx];
+      slide.style.display = 'block';
+      slide.classList.remove('slide-in');
+      void slide.offsetWidth;
+      slide.classList.add('slide-in');
+      if (labelEl) labelEl.textContent = 'Q' + (idx + 1) + '.';
+      if (countEl) countEl.textContent = (idx + 1) + '/' + total;
+      renderDots();
+    }
+  }
+
+  function showComplete(r) {
+    slides.forEach(s => s.style.display = 'none');
+    if (headerEl) headerEl.style.display = 'none';
+    const el = shadow.querySelector('[data-complete]');
+    el.style.display = 'block';
+    renderDots();
+    if (r) {
+      const statsEl = shadow.querySelector('[data-stats]');
+      if (statsEl) statsEl.textContent = '정답 ' + r.correct + '/' + r.set_size + ' (' + r.accuracy + '%) — +' + r.total_points + '점';
+      const detailEl = shadow.querySelector('[data-detail]');
+      if (detailEl) {
+        const questions = r.questions || [];
+        const wrongs = questions.filter(q => !q.correct);
+        const corrects = questions.filter(q => q.correct);
+
+        if (wrongs.length === 0) {
+          detailEl.innerHTML = '<div class="all-clear">🎯 올 클리어!</div>';
+        } else {
+          let html = '';
+          // Correct badges row
+          if (corrects.length > 0) {
+            html += '<div class="result-correct-row">';
+            corrects.forEach(q => {
+              html += '<span class="result-correct-badge">Q' + (q.index + 1) + ' ✓</span>';
+            });
+            html += '</div>';
+          }
+          // Wrong cards with explanation
+          html += '<div class="result-list">';
+          wrongs.forEach(q => {
+            html += '<div class="wrong-card">';
+            html += '<div class="wrong-card-header">';
+            html += '<span class="wrong-card-qnum">Q' + (q.index + 1) + ' ✗</span>';
+            if (q.topic) html += '<span class="wrong-card-topic">' + q.topic + '</span>';
+            html += '</div>';
+            html += '<div class="wrong-card-answers">';
+            html += '<span class="wrong-card-given">' + q.answer_given + '</span>';
+            html += '<span class="wrong-card-arrow">→</span>';
+            html += '<span class="wrong-card-correct">' + q.correct_answer + '</span>';
+            html += '</div>';
+            if (q.explanation) {
+              html += '<div class="wrong-card-explanation">' + q.explanation + '</div>';
+            }
+            html += '</div>';
+          });
+          html += '</div>';
+          detailEl.innerHTML = html;
+        }
+      }
+    }
+  }
+
+  // Already completed?
+  if (state.idx >= total) {
+    showComplete(state.batch);
+    return;
+  }
+  showSlide(state.idx);
+
+  // Click handlers
+  shadow.querySelectorAll('.card').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const slide = btn.closest('.q-slide');
+      const qi = parseInt(slide.dataset.qi, 10);
+      if (qi !== state.idx) return;
+
+      // Disable cards on this slide
+      slide.querySelectorAll('.card').forEach(c => c.classList.add('picked'));
+
+      const answer = LETTERS[parseInt(btn.dataset.idx, 10)];
+      const q = (quizData.questions || [])[qi];
+      const correct = q && answer === q.answer;
+
+      // Visual feedback on chosen card
+      btn.style.borderColor = correct ? '#9dff6b88' : '#ff4d4d88';
+      btn.classList.remove('picked');
+      btn.style.opacity = '1';
+
+      state.ans.push(answer);
+      state.res.push(correct);
+      state.idx++;
+
+      if (state.idx >= total) {
+        // Batch submit
+        sessionStorage.setItem(stateKey, JSON.stringify(state));
+        const res = await __panelBridge.runTool('engine', {
+          action: 'submit_batch', params: { answers: state.ans }
+        });
+        const r = res?.result || {};
+        state.batch = r;
+        sessionStorage.setItem(stateKey, JSON.stringify(state));
+
+        setTimeout(() => showComplete(r), 400);
+
+        // Build event header
+        let header = '[세트완료] ' + r.correct + '/' + r.set_size + ' 정답 | +' + r.total_points + '점 | 정답률:' + r.accuracy + '% | 스트릭:' + r.streak;
+        const wrongs = (r.questions || []).filter(q => !q.correct);
+        if (wrongs.length > 0) {
+          header += '\n오답: ' + wrongs.map(q => 'Q' + (q.index+1) + '(' + q.answer_given + '→' + q.correct_answer + ')').join(', ');
+        }
+        if (r.rewards_unlocked) {
+          header += '\n보상해금: ' + r.rewards_unlocked.map(rw => rw.title).join(', ');
+        }
+
+        await __panelBridge.queueEvent(header);
+        sessionStorage.removeItem(stateKey);
+        __panelBridge.sendMessage('퀴즈 세트 완료! ' + r.correct + '/' + r.set_size + ' 정답');
+      } else {
+        sessionStorage.setItem(stateKey, JSON.stringify(state));
+        setTimeout(() => showSlide(state.idx), 250);
+      }
+    });
+  });
+})();
+</script>
