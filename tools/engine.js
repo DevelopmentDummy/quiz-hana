@@ -3,7 +3,9 @@
 // AI는 이 엔진의 결과를 받아 서사/리액션만 담당한다.
 
 module.exports = async function(context, args) {
-  const { action, params = {} } = args;
+  const { action, params: _wrapped, ...rest } = args;
+  // Support both flat ({ action, key: val }) and wrapped ({ action, params: { key: val } }) styles
+  const params = (_wrapped && typeof _wrapped === 'object') ? _wrapped : rest;
 
   const v = { ...context.variables };
   const quiz = deepClone(context.data.quiz || {});
